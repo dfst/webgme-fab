@@ -1,0 +1,22 @@
+{
+  "components": {
+    "visualizers": {
+      "FloatingActionButton": {
+        "src": "panels/FloatingActionButton/FloatingActionButtonPanel",
+        "title": "FloatingActionButton",
+        "panel": "src/visualizers/panels/FloatingActionButton",
+        "secondary": true,
+        "widget": "src/visualizers/widgets/FloatingActionButton"
+      }
+    },
+    "layouts": {
+      "TestLayout": {
+        "src": "src/layouts/TestLayout"
+      }
+    }
+  },
+  "dependencies": {
+    "visualizers": {},
+    "layouts": {}
+  }
+}
