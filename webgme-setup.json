@@ -13,10 +13,23 @@
       "TestLayout": {
         "src": "src/layouts/TestLayout"
       }
-    }
+    },
+    "addons": {},
+    "decorators": {},
+    "plugins": {},
+    "seeds": {}
   },
   "dependencies": {
     "visualizers": {},
-    "layouts": {}
+    "layouts": {
+      "CHFLayout": {
+        "project": "webgme-chflayout",
+        "path": "node_modules/webgme-chflayout/src/layouts/CHFLayout"
+      }
+    },
+    "addons": {},
+    "decorators": {},
+    "plugins": {},
+    "seeds": {}
   }
 }

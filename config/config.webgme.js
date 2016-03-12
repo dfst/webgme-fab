@@ -9,12 +9,14 @@ var config = require('webgme/config/config.default'),
 
 // The paths can be loaded from the webgme-setup.json
 config.visualization.layout.basePaths.push('src/layouts');
+config.visualization.layout.basePaths.push('node_modules/webgme-chflayout/src/layouts');
 
 
 // Visualizer descriptors
 config.visualization.visualizerDescriptors.push('./src/visualizers/Visualizers.json');
 // Add requirejs paths
 config.requirejsPaths = {
+  'CHFLayout': 'node_modules/webgme-chflayout/src/layouts/CHFLayout',
   'panels': './src/visualizers/panels',
   'widgets': './src/visualizers/widgets'
 };

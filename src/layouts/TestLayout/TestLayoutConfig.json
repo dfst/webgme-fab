@@ -7,21 +7,21 @@
       "DEBUG_ONLY": false
     },
     {
-      "id": "FAB",
-      "panel": "FloatingActionButton/FloatingActionButton",
-      "container": "float",
-      "DEBUG_ONLY": false
-    },
-    {
       "id": "Footer",
       "panel": "FooterControls/FooterControlsPanel",
       "container": "footer",
       "DEBUG_ONLY": false
     },
     {
-      "id": "MainPanel",
-      "panel": "ModelEditor/ModelEditorPanel",
+      "id": "GraphViz",
+      "panel": "GraphViz/GraphVizPanel",
       "container": "center",
+      "DEBUG_ONLY": false
+    },
+    {
+      "id": "FloatingActionButton",
+      "panel": "FloatingActionButton/FloatingActionButton",
+      "container": "float",
       "DEBUG_ONLY": false
     }
   ]

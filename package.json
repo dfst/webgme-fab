@@ -6,7 +6,8 @@
   },
   "version": "1.0.0",
   "dependencies": {
-    "webgme": "^1.1.0"
+    "webgme": "^1.1.0",
+    "webgme-chflayout": "dfst/webgme-chflayout"
   },
   "devDependencies": {
     "mocha": "^2.2.5",
