@@ -69,7 +69,7 @@ define([
         ActionBtnPlugins.call(this);
         this._initialize();
 
-        //this.logger.debug('ctor finished');
+        this.logger.debug('ctor finished');
     };
 
     _.extend(PluginButton.prototype, PanelBase.prototype);

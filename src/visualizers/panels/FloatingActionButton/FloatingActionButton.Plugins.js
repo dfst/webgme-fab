@@ -54,8 +54,14 @@ define([
 
     ActionButtonPlugins.prototype._stateActiveObjectChanged = function (m, nodeId) {
         var node = this.client.getNode(nodeId),
-            rawPluginRegistry = node.getRegistry(REGISTRY_KEYS.VALID_PLUGINS) || '',
+            rawPluginRegistry = '',
             plugin;
+
+        if (node) {
+            rawPluginRegistry = node.getRegistry(REGISTRY_KEYS.VALID_PLUGINS) || '';
+        } else {
+            this.logger.warn('node is ' + node);
+        }
 
         // Get the valid plugins for the node
         this._validPlugins = rawPluginRegistry.split(' ')
