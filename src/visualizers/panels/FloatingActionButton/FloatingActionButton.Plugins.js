@@ -27,6 +27,7 @@ define([
                 Materialize.toast(result.pluginName + ' execution ' + (result.success ?
                     'successful' : 'failed') + '.', 5000);
                 // TODO: allow click to view results from the toast
+                result.__unread = true;
                 self.results.push(result);
                 //self._newResults = true;
                 // TODO: Increase the priority of the result until it is viewed?
@@ -42,6 +43,11 @@ define([
     ActionButtonPlugins.prototype.pluginResultsFn = function () {
         var dialog = new PluginResultsDialog();
         dialog.show(this.client, this.results);
+
+        // Set all the results '__unread' to false
+        this.results.forEach(function(result) {
+            result.__unread = false;
+        });
     };
 
     ActionButtonPlugins.prototype._initialize = function () {
