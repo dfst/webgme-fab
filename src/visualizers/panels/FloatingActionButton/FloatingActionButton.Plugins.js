@@ -20,9 +20,11 @@ define([
     };
 
     ActionButtonPlugins.prototype._invokePlugin = function (name) {
-        var self = this;
+        var self = this,
+		    metadata;
         if (name) {
-            WebGMEGlobal.InterpreterManager.run(name, null, function(result) {
+            metadata = WebGMEGlobal.allPluginsMetadata[name];
+            WebGMEGlobal.InterpreterManager.configureAndRun(metadata, function(result) {
                 // Create the toast
                 Materialize.toast(result.pluginName + ' execution ' + (result.success ?
                     'successful' : 'failed') + '.', 5000);
