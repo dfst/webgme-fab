@@ -2,16 +2,17 @@
   "name": "webgme-fab",
   "scripts": {
     "start": "node app.js",
+    "start-dev": "NODE_ENV=dev node app.js",
     "test": "node ./node_modules/mocha/bin/mocha --recursive test"
   },
   "version": "1.1.0",
-  "dependencies": {
-    "webgme": "^2.0.0",
-    "webgme-chflayout": "dfst/webgme-chflayout"
+  "peerDependencies": {
+    "webgme": "^2.0.0"
   },
   "devDependencies": {
     "mocha": "^2.2.5",
     "rimraf": "^2.4.0",
-    "chai": "^3.0.0"
+    "chai": "^3.0.0",
+    "webgme-chflayout": "dfst/webgme-chflayout"
   }
 }
