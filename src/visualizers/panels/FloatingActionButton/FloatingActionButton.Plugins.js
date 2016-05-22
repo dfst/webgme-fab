@@ -25,15 +25,17 @@ define([
         if (name) {
             metadata = WebGMEGlobal.allPluginsMetadata[name];
             WebGMEGlobal.InterpreterManager.configureAndRun(metadata, function(result) {
-                // Create the toast
-                Materialize.toast(result.pluginName + ' execution ' + (result.success ?
-                    'successful' : 'failed') + '.', 5000);
-                // TODO: allow click to view results from the toast
-                result.__unread = true;
-                self.results.push(result);
-                //self._newResults = true;
-                // TODO: Increase the priority of the result until it is viewed?
-                self._updatePluginBtns();
+                if (result) {  // not cancelled
+                    // Create the toast
+                    Materialize.toast(result.pluginName + ' execution ' + (result.success ?
+                        'successful' : 'failed') + '.', 5000);
+                    // TODO: allow click to view results from the toast
+                    result.__unread = true;
+                    self.results.push(result);
+                    //self._newResults = true;
+                    // TODO: Increase the priority of the result until it is viewed?
+                    self._updatePluginBtns();
+                }
             });
         }
     };
