@@ -18,7 +18,7 @@ define([
     './styles/js/buttons',
     './styles/js/toasts',
     './styles/js/tooltip',
-    'css!./styles/css/materialize-fab.css',
+    'css!./styles/css/floating-action-btn.css',
     'css!./styles/css/icons.css',
 ], function (
     CONSTANTS,
@@ -100,10 +100,11 @@ define([
         // Set the onclick for the action buttons
         var anchors = [],
             child,
+            container = html[0],
             listElement;
 
-        for (var i = html[0].children.length; i--;) {
-            child = html[0].children[i];
+        for (var i = container.children.length; i--;) {
+            child = container.children[i];
             if (child.tagName.toLowerCase() === 'a') {
                 anchors.push(child);
             } else {  // ul element
