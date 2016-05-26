@@ -78,7 +78,10 @@ define([
             .filter(entry => !!entry);
 
         this._currentNodeId = nodeId;
+
+        $('.tooltipped').tooltip('remove');  // Clear any existing tooltips
         this._updatePluginBtns();
+        $('.tooltipped').tooltip({delay: 50});  // Refresh tooltips
     };
 
 
