@@ -17,6 +17,7 @@ define([
         this._currentPlugins = [];
         this._pluginConfig = {};
         this._newResults = false;
+        this._territoryId = null;
     };
 
     ActionButtonPlugins.prototype._invokePlugin = function (name) {
@@ -56,13 +57,38 @@ define([
 
     ActionButtonPlugins.prototype._initialize = function () {
         // Add listener for object changed and update the button
-        WebGMEGlobal.State.on('change:' + CONSTANTS.STATE_ACTIVE_OBJECT, this._stateActiveObjectChanged, this);
+        WebGMEGlobal.State.on('change:' + CONSTANTS.STATE_ACTIVE_OBJECT,
+            (model, nodeId) => this.selectedObjectChanged(nodeId));
         // TODO: Do I need a destructor for this?
         // TODO: I should check to see how this updates when the validPlugins
         // gets updated. It may require a refresh of the active node currently
     };
 
-    ActionButtonPlugins.prototype._stateActiveObjectChanged = function (m, nodeId) {
+    ActionButtonPlugins.prototype.TERRITORY_RULE = {children: 0};
+    ActionButtonPlugins.prototype.selectedObjectChanged = function(nodeId) {
+        if (this._territoryId) {
+            this._client.removeUI(this._territoryId);
+        }
+
+        this._territoryId = this._client.addUI(this, events => {
+            this._eventCallback(events);
+        });
+
+        this._selfPatterns = {};
+        this._selfPatterns[nodeId] = this.TERRITORY_RULE;
+        this._client.updateTerritory(this._territoryId, this._selfPatterns);
+    };
+
+    ActionButtonPlugins.prototype._eventCallback = function(events) {
+        var event = events.find(e => e.etype === CONSTANTS.TERRITORY_EVENT_LOAD),
+            currentId = event ? event.eid : null;
+
+        if (event) {
+            this.onNodeLoad(event.eid);
+        }
+    };
+
+    ActionButtonPlugins.prototype.onNodeLoad = function (nodeId) {
         var node = this.client.getNode(nodeId),
             rawPluginRegistry = '',
             plugin;
