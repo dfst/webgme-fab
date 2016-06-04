@@ -4,10 +4,10 @@ WebGME-fab is a floating action button for webgme apps (using [materializecss](h
 ## Quick Start
 Add the `FloatingActionButton` to your webgme app with
 ```
-webgme add viz FloatingActionButton webgme-fab
+webgme import viz FloatingActionButton webgme-fab
 ```
 
-Then add it to your layout as done in [deepforge-caffe](https://github.com/dfst/deepforge-caffe).
+Then add it to your layout as done in [deepforge](https://github.com/dfst/deepforge).
 
 ## Examples
 This repository is a functioning example of the FloatingActionButton. First, make sure you have an instance of mongo running locally. Then simply clone and run it for an example:
