@@ -70,13 +70,15 @@ define([
             this._client.removeUI(this._territoryId);
         }
 
-        this._territoryId = this._client.addUI(this, events => {
-            this._eventCallback(events);
-        });
+        if (typeof nodeId === 'string') {
+            this._territoryId = this._client.addUI(this, events => {
+                this._eventCallback(events);
+            });
 
-        this._selfPatterns = {};
-        this._selfPatterns[nodeId] = this.TERRITORY_RULE;
-        this._client.updateTerritory(this._territoryId, this._selfPatterns);
+            this._selfPatterns = {};
+            this._selfPatterns[nodeId] = this.TERRITORY_RULE;
+            this._client.updateTerritory(this._territoryId, this._selfPatterns);
+        }
     };
 
     ActionButtonPlugins.prototype._eventCallback = function(events) {
