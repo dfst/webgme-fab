@@ -67,17 +67,17 @@ define([
     ActionButtonPlugins.prototype.TERRITORY_RULE = {children: 0};
     ActionButtonPlugins.prototype.selectedObjectChanged = function(nodeId) {
         if (this._territoryId) {
-            this._client.removeUI(this._territoryId);
+            this.client.removeUI(this._territoryId);
         }
 
         if (typeof nodeId === 'string') {
-            this._territoryId = this._client.addUI(this, events => {
+            this._territoryId = this.client.addUI(this, events => {
                 this._eventCallback(events);
             });
 
             this._selfPatterns = {};
             this._selfPatterns[nodeId] = this.TERRITORY_RULE;
-            this._client.updateTerritory(this._territoryId, this._selfPatterns);
+            this.client.updateTerritory(this._territoryId, this._selfPatterns);
         }
     };
 
