@@ -7,6 +7,7 @@ define([
     'js/RegistryKeys',
     'js/PanelBase/PanelBase',
     './FloatingActionButton.Plugins',
+    'js/Utils/ComponentSettings',
     'text!./templates/PluginButton.html.ejs',
     'text!./templates/PluginAnchor.html.ejs',
     'text!./templates/NoPlugins.html',
@@ -25,6 +26,7 @@ define([
     REGISTRY_KEYS,
     PanelBase,
     ActionBtnPlugins,
+    ComponentSettings,
     PluginBtnTemplateText,
     PluginTemplateText,
     NoPluginHtml,
@@ -66,6 +68,11 @@ define([
         this.buttons = {};  // name -> function
         this._currentButtons = [];
 
+        this._config = {
+            hideOnEmpty: true
+        };
+        ComponentSettings.resolveWithWebGMEGlobal(this._config, PluginButton.getComponentId());
+
         ActionBtnPlugins.call(this);
         this._initialize();
 
@@ -73,6 +80,10 @@ define([
     };
 
     _.extend(PluginButton.prototype, PanelBase.prototype);
+
+    PluginButton.getComponentId = function () {
+        return 'FloatingActionButton';
+    };
 
     PluginButton.prototype._needsUpdate = function () {
         // Check if the buttons have changed
@@ -95,35 +106,37 @@ define([
         // Update the html
         html = this._createButtonHtml();
         this.$el.empty();
-        this.$el.append(html);
+        if (html) {
+            this.$el.append(html);
 
-        // Set the onclick for the action buttons
-        var anchors = [],
-            child,
-            container = html[0],
-            listElement;
+            // Set the onclick for the action buttons
+            var anchors = [],
+                child,
+                container = html[0],
+                listElement;
 
-        for (var i = container.children.length; i--;) {
-            child = container.children[i];
-            if (child.tagName.toLowerCase() === 'a') {
-                anchors.push(child);
-            } else {  // ul element
-                for (var k = child.children.length; k--;) {
-                    listElement = child.children[k].children[0];
-                    if (listElement) {
-                        anchors.push(listElement);
+            for (var i = container.children.length; i--;) {
+                child = container.children[i];
+                if (child.tagName.toLowerCase() === 'a') {
+                    anchors.push(child);
+                } else {  // ul element
+                    for (var k = child.children.length; k--;) {
+                        listElement = child.children[k].children[0];
+                        if (listElement) {
+                            anchors.push(listElement);
+                        }
                     }
                 }
             }
-        }
 
-        // Add onclick listener
-        anchors
-            .forEach(anchor => {
-                var name = anchor.getAttribute('data-tooltip');
-                anchor.onclick = this._onButtonClicked.bind(this, name);
-            });
-        $('.tooltipped').tooltip({delay: 50});
+            // Add onclick listener
+            anchors
+                .forEach(anchor => {
+                    var name = anchor.getAttribute('data-tooltip');
+                    anchor.onclick = this._onButtonClicked.bind(this, name);
+                });
+            $('.tooltipped').tooltip({delay: 50});
+        }
 
         this._currentButtons = Object.keys(this.buttons);
     };
@@ -160,12 +173,15 @@ define([
             }));
         }
 
-        html = NoPluginHtml;
         if (actions.length > 0) {
             html = PluginBtnTemplate({plugins: actions});
+            return $(html);
+        } else if (this._config.hideOnEmpty) {
+            return null;
+        } else {
+            return $(NoPluginHtml);
         }
 
-        return $(html);
     };
 
     PluginButton.prototype._onButtonClicked = function (name) {
