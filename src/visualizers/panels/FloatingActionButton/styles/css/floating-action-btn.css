@@ -2691,7 +2691,7 @@
 .webgme-fab .z-depth-1,
 .webgme-fab .card-panel,
 .webgme-fab .card,
-.webgme-fab .toast,
+.toast,
 .webgme-fab .btn-large,
 .webgme-fab .btn-floating {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -7221,21 +7221,21 @@
   display: block;
 }
 
-.webgme-fab #toast-container {
+#toast-container {
   display: block;
   position: fixed;
   z-index: 10000;
 }
 
 @media only screen and (max-width: 600px) {
-  .webgme-fab #toast-container {
+  #toast-container {
     min-width: 100%;
     bottom: 0%;
   }
 }
 
 @media only screen and (min-width: 601px) and (max-width: 992px) {
-  .webgme-fab #toast-container {
+  #toast-container {
     min-width: 30%;
     left: 5%;
     bottom: 7%;
@@ -7243,14 +7243,14 @@
 }
 
 @media only screen and (min-width: 993px) {
-  .webgme-fab #toast-container {
+  #toast-container {
     min-width: 8%;
     top: 10%;
     right: 7%;
   }
 }
 
-.webgme-fab .toast {
+.toast {
   border-radius: 2px;
   top: 0;
   width: auto;
@@ -7262,7 +7262,8 @@
   line-height: 48px;
   background-color: #323232;
   padding: 0 25px;
-  font-size: 1.1rem;
+  /*font-size: 1.1rem;*/
+  font-size: 15.95px;
   font-weight: 300;
   color: #fff;
   display: -webkit-box;
@@ -7278,31 +7279,31 @@
   justify-content: space-between;
 }
 
-.webgme-fab .toast .toast .btn-large,
-.webgme-fab .toast .btn-flat {
+.toast .toast .btn-large,
+.toast .btn-flat {
   margin: 0;
   margin-left: 3rem;
 }
 
-.webgme-fab .toast.rounded {
+.toast.rounded {
   border-radius: 24px;
 }
 
 @media only screen and (max-width: 600px) {
-  .webgme-fab .toast {
+  .toast {
     width: 100%;
     border-radius: 0;
   }
 }
 
 @media only screen and (min-width: 601px) and (max-width: 992px) {
-  .webgme-fab .toast {
+  .toast {
     float: left;
   }
 }
 
 @media only screen and (min-width: 993px) {
-  .webgme-fab .toast {
+  .toast {
     float: right;
   }
 }
