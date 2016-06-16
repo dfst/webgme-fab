@@ -55,41 +55,6 @@ define([
         });
     };
 
-    ActionButtonPlugins.prototype._initialize = function () {
-        // Add listener for object changed and update the button
-        WebGMEGlobal.State.on('change:' + CONSTANTS.STATE_ACTIVE_OBJECT,
-            (model, nodeId) => this.selectedObjectChanged(nodeId));
-        // TODO: Do I need a destructor for this?
-        // TODO: I should check to see how this updates when the validPlugins
-        // gets updated. It may require a refresh of the active node currently
-    };
-
-    ActionButtonPlugins.prototype.TERRITORY_RULE = {children: 0};
-    ActionButtonPlugins.prototype.selectedObjectChanged = function(nodeId) {
-        if (this._territoryId) {
-            this.client.removeUI(this._territoryId);
-        }
-
-        if (typeof nodeId === 'string') {
-            this._territoryId = this.client.addUI(this, events => {
-                this._eventCallback(events);
-            });
-
-            this._selfPatterns = {};
-            this._selfPatterns[nodeId] = this.TERRITORY_RULE;
-            this.client.updateTerritory(this._territoryId, this._selfPatterns);
-        }
-    };
-
-    ActionButtonPlugins.prototype._eventCallback = function(events) {
-        var event = events.find(e => e.etype === CONSTANTS.TERRITORY_EVENT_LOAD),
-            currentId = event ? event.eid : null;
-
-        if (event) {
-            this.onNodeLoad(event.eid);
-        }
-    };
-
     ActionButtonPlugins.prototype.onNodeLoad = function (nodeId) {
         var node = this.client.getNode(nodeId),
             rawPluginRegistry = '',
@@ -104,8 +69,6 @@ define([
         // Get the valid plugins for the node
         this._validPlugins = rawPluginRegistry.split(' ')
             .filter(entry => !!entry);
-
-        this._currentNodeId = nodeId;
 
         $('.tooltipped').tooltip('remove');  // Clear any existing tooltips
         this._updatePluginBtns();
