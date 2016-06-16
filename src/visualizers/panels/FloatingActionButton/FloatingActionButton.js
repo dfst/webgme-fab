@@ -137,8 +137,42 @@ define([
                 });
             $('.tooltipped').tooltip({delay: 50});
         }
+    };
 
-        this._currentButtons = Object.keys(this.buttons);
+    PluginButton.prototype._initialize = function () {
+        // Add listener for object changed and update the button
+        WebGMEGlobal.State.on('change:' + CONSTANTS.STATE_ACTIVE_OBJECT,
+            (model, nodeId) => this.selectedObjectChanged(nodeId));
+        // TODO: Do I need a destructor for this?
+        // TODO: I should check to see how this updates when the validPlugins
+        // gets updated. It may require a refresh of the active node currently
+    };
+
+    PluginButton.prototype.TERRITORY_RULE = {children: 0};
+    PluginButton.prototype.selectedObjectChanged = function(nodeId) {
+        if (this._territoryId) {
+            this.client.removeUI(this._territoryId);
+        }
+
+        if (typeof nodeId === 'string') {
+            this._territoryId = this.client.addUI(this, events => {
+                this._eventCallback(events);
+            });
+
+            this._currentNodeId = nodeId;
+            this._selfPatterns = {};
+            this._selfPatterns[nodeId] = this.TERRITORY_RULE;
+            this.client.updateTerritory(this._territoryId, this._selfPatterns);
+        }
+    };
+
+    PluginButton.prototype._eventCallback = function(events) {
+        var event = events.find(e => e.eid === this._currentNodeId);
+
+        if (event && (event.etype === CONSTANTS.TERRITORY_EVENT_LOAD ||
+            event.etype === CONSTANTS.TERRITORY_EVENT_UPDATE)) {
+            this.onNodeLoad(event.eid);
+        }
     };
 
     PluginButton.prototype._createButtonHtml = function () {
@@ -161,6 +195,11 @@ define([
             .sort((a, b) => a.priority < b.priority)
             .map(obj => obj.name);
 
+        // Remove all buttons that don't have an action or href
+        names = names.filter(name => this.buttons[name].action ||
+            typeof this.buttons[name].href === 'string'||
+            this.buttons[name].href.call(this));
+
         // Create the html for each
         for (var i = 0; i < names.length; i++) {
             action = this.buttons[names[i]];
@@ -182,6 +221,7 @@ define([
             return $(NoPluginHtml);
         }
 
+        this._currentButtons = names;
     };
 
     PluginButton.prototype._onButtonClicked = function (name) {
