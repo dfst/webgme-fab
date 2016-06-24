@@ -23,6 +23,7 @@ define([
     ActionButtonPlugins.prototype._invokePlugin = function (name) {
         var self = this,
 		    metadata;
+
         if (name) {
             metadata = WebGMEGlobal.allPluginsMetadata[name];
             WebGMEGlobal.InterpreterManager.configureAndRun(metadata, function(result) {
@@ -79,23 +80,27 @@ define([
     ActionButtonPlugins.prototype._updatePluginBtns = function() {
         var oldPlugins = this._currentPlugins,
             pluginStyle,
-            plugin,
+            pluginId,
+            name,
             i;
 
         // TODO: This could be optimized
         // Remove the old plugins
         for (i = oldPlugins.length; i--;) {
-            delete this.buttons[oldPlugins[i]];
+            pluginId = oldPlugins[i];
+            name = WebGMEGlobal.allPluginsMetadata[pluginId].name;
+            delete this.buttons[name];
         }
 
         // Add the plugins to the buttons list
         for (i = this._validPlugins.length; i--;) {
-            plugin = this._validPlugins[i];
-            pluginStyle = this._pluginConfig[plugin] || {};
-            pluginStyle.action = this.getPluginFn(plugin);
+            pluginId = this._validPlugins[i];
+            name = WebGMEGlobal.allPluginsMetadata[pluginId].name;
+            pluginStyle = this._pluginConfig[pluginId] || {};
+            pluginStyle.action = this.getPluginFn(pluginId);
 
             // Set the style
-            this.buttons[plugin] = pluginStyle;
+            this.buttons[name] = pluginStyle;
         }
 
         // Add results if necessary
