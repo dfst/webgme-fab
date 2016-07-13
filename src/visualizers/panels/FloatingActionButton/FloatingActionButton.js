@@ -99,13 +99,18 @@ define([
         }
     };
 
+    PluginButton.prototype._clearHtml = function () {
+        this.$el.find('.tooltipped').tooltip('remove');
+        this.$el.empty();
+    };
+
     PluginButton.prototype._updateButton = function () {
         // Create the html elements
         var html;
 
         // Update the html
+        this._clearHtml();
         html = this._createButtonHtml();
-        this.$el.empty();
         if (html) {
             this.$el.append(html);
 
@@ -135,7 +140,7 @@ define([
                     var name = anchor.getAttribute('data-tooltip');
                     anchor.onclick = this._onButtonClicked.bind(this, name);
                 });
-            $('.tooltipped').tooltip({delay: 50});
+            this.$el.find('.tooltipped').tooltip({delay: 50});
         }
     };
 
