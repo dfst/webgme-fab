@@ -71,9 +71,7 @@ define([
         this._validPlugins = rawPluginRegistry.split(' ')
             .filter(entry => !!entry);
 
-        $('.tooltipped').tooltip('remove');  // Clear any existing tooltips
         this._updatePluginBtns();
-        $('.tooltipped').tooltip({delay: 50});  // Refresh tooltips
     };
 
 
