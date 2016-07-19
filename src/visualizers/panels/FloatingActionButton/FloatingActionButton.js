@@ -191,19 +191,24 @@ define([
         // Get the actions
         actionNames = Object.keys(this.buttons);
         names = actionNames
+            // Remove all buttons that don't have an action or href
+            .filter(name => this.buttons[name].action ||
+                typeof this.buttons[name].href === 'string'||
+                this.buttons[name].href.call(this)
+            )
+            // Sort by priority
             .map(name => {
                 return {
                     name,
                     priority: this.buttons[name].priority || 0
                 };
             })
-            .sort((a, b) => a.priority < b.priority)
+            .sort((a, b) => a.priority > b.priority)
             .map(obj => obj.name);
 
-        // Remove all buttons that don't have an action or href
-        names = names.filter(name => this.buttons[name].action ||
-            typeof this.buttons[name].href === 'string'||
-            this.buttons[name].href.call(this));
+        if (names.length) {
+            names.unshift(names.pop());
+        }
 
         // Create the html for each
         for (var i = 0; i < names.length; i++) {
@@ -211,7 +216,8 @@ define([
             actions.push(PluginTemplate({
                 name: names[i],
                 icon: action.icon || DEFAULT_ICON,
-                color: action.color || colors[i % colors.length],
+                color: action.color || (i === 0 ? colors[i] :
+                    colors[(names.length-i) % colors.length]),
                 // Add href if appropriate
                 href: action.href ? action.href.call(this) : null
             }));
