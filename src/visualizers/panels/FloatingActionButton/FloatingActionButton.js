@@ -232,7 +232,7 @@ define([
     PluginButton.prototype._onButtonClicked = function (name) {
         // Look up the function and invoke it
         if (this.buttons[name].action) {
-            this.buttons[name].action.call(this);
+            this.buttons[name].action.call(this, event);
         }
     };
 
