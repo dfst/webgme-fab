@@ -2,10 +2,12 @@
 define([
     'js/Constants',
     'js/RegistryKeys',
+    './styles/Materialize',
     'js/Dialogs/PluginResults/PluginResultsDialog'
 ], function(
     CONSTANTS,
     REGISTRY_KEYS,
+    Materialize,
     PluginResultsDialog
 ) {
     'use strict';
@@ -35,7 +37,6 @@ define([
                     result.__unread = true;
                     self.results.push(result);
                     //self._newResults = true;
-                    // TODO: Increase the priority of the result until it is viewed?
                     self._updatePluginBtns();
                 }
             });

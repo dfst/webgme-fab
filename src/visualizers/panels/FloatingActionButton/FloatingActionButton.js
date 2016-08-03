@@ -13,12 +13,6 @@ define([
     'text!./templates/NoPlugins.html',
 
     // Extra js and css for the button
-    './styles/js/hammer.min',
-    './styles/js/velocity.min',
-    './styles/js/global',
-    './styles/js/buttons',
-    './styles/js/toasts',
-    './styles/js/tooltip',
     'css!./styles/css/floating-action-btn.css',
     'css!./styles/css/icons.css',
 ], function (
@@ -29,16 +23,10 @@ define([
     ComponentSettings,
     PluginBtnTemplateText,
     PluginTemplateText,
-    NoPluginHtml,
-    Hammer,
-    Vel
+    NoPluginHtml
 ) {
     'use strict';
 
-    // FIXME: There is a better way to give materialize access to Hammer and Vel
-    // in the global scope
-    window.Hammer = Hammer;
-    window.Vel = Vel;
     var PluginButton,
         PluginTemplate = _.template(PluginTemplateText),
         PluginBtnTemplate = _.template(PluginBtnTemplateText),
