@@ -94,12 +94,17 @@ define([
         // Add the plugins to the buttons list
         for (i = this._validPlugins.length; i--;) {
             pluginId = this._validPlugins[i];
-            name = WebGMEGlobal.allPluginsMetadata[pluginId].name;
-            pluginStyle = this._pluginConfig[pluginId] || {};
-            pluginStyle.action = this.getPluginFn(pluginId);
+            if (!WebGMEGlobal.allPluginsMetadata[pluginId]) {
+                this.logger.warn(`Found invalid pluginId (${pluginId}). Ignoring...`);
+                this._validPlugins.splice(i, 1);
+            } else {
+                name = WebGMEGlobal.allPluginsMetadata[pluginId].name;
+                pluginStyle = this._pluginConfig[pluginId] || {};
+                pluginStyle.action = this.getPluginFn(pluginId);
 
-            // Set the style
-            this.buttons[name] = pluginStyle;
+                // Set the style
+                this.buttons[name] = pluginStyle;
+            }
         }
 
         // Add results if necessary
