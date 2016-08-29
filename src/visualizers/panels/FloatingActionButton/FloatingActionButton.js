@@ -14,7 +14,7 @@ define([
 
     // Extra js and css for the button
     'css!./styles/css/floating-action-btn.css',
-    'css!./styles/css/icons.css',
+    'css!./styles/css/icons.css'
 ], function (
     CONSTANTS,
     REGISTRY_KEYS,
@@ -57,7 +57,8 @@ define([
         this._currentButtons = [];
 
         this._config = {
-            hideOnEmpty: true
+            hideOnEmpty: true,
+            pluginUIConfigs: {}
         };
         ComponentSettings.resolveWithWebGMEGlobal(this._config, PluginButton.getComponentId());
 

@@ -17,7 +17,6 @@ define([
         this.results = [];
         this._validPlugins = [];
         this._currentPlugins = [];
-        this._pluginConfig = {};
         this._newResults = false;
         this._territoryId = null;
     };
@@ -99,7 +98,7 @@ define([
                 this._validPlugins.splice(i, 1);
             } else {
                 name = WebGMEGlobal.allPluginsMetadata[pluginId].name;
-                pluginStyle = this._pluginConfig[pluginId] || {};
+                pluginStyle = this._config.pluginUIConfigs[pluginId] || {};
                 pluginStyle.action = this.getPluginFn(pluginId);
 
                 // Set the style

@@ -1,0 +1,12 @@
+{
+    "FloatingActionButton": {
+        "hideOnEmpty": true,
+        "pluginUIConfigs": {
+            "SomePluginName": {
+                "icon": "import_export",
+                "priority": 10,
+                "color": "green"
+            }
+        }
+    }
+}
