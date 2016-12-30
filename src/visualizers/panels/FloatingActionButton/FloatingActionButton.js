@@ -224,7 +224,7 @@ define([
         this._currentButtons = names;
     };
 
-    PluginButton.prototype._onButtonClicked = function (name) {
+    PluginButton.prototype._onButtonClicked = function (name, event) {
         // Look up the function and invoke it
         if (this.buttons[name].action) {
             this.buttons[name].action.call(this, event);
