@@ -1,5 +1,21 @@
 {
   "name": "webgme-fab",
+  "author": {
+    "name": "Brian Broll",
+    "url": "https://github.com/brollb"
+  },
+  "description": "WebGME-fab is a floating action button for webgme apps. By default it provides capabilities for running plugins.",
+  "license": "MIT",
+  "keywords": [
+    "webgme",
+    "webgme-component",
+    "visualizer",
+    "plugin-execution"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dfst/webgme-fab.git"
+  },
   "scripts": {
     "start": "node app.js",
     "start-dev": "NODE_ENV=dev node app.js",
