@@ -30,8 +30,14 @@ define([
             WebGMEGlobal.InterpreterManager.configureAndRun(metadata, function(result) {
                 if (result) {  // not cancelled
                     // Create the toast
-                    Materialize.toast(result.pluginName + ' execution ' + (result.success ?
-                        'successful' : 'failed') + '.', 5000);
+                    var message = result.pluginName + ' execution ' +
+                        (result.success ? 'successful' : 'failed');
+
+                    if (result.error) {
+                        message += ': ' + result.error;
+                    }
+
+                    Materialize.toast(message, 5000);
                     // TODO: allow click to view results from the toast
                     result.__unread = true;
                     self.results.push(result);
