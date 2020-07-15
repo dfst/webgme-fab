@@ -192,7 +192,7 @@ define([
                     priority: this.buttons[name].priority || 0
                 };
             })
-            .sort((a, b) => a.priority > b.priority)
+            .sort((a, b) => a.priority > b.priority ? 1 : -1)
             .map(obj => obj.name);
 
         if (names.length) {
